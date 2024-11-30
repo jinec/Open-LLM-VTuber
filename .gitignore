@@ -49,5 +49,5 @@ conf.yaml.backup
 mem_dify.json
 
 # mele
-melo/*
+# melo/*
 live2d-models/*
