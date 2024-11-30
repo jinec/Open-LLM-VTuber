@@ -17,7 +17,7 @@ REMOVE_SPECIAL_CHAR: True # remove special characters like emoji from audio gene
 # Provider of LLM. Options available: "ollama", "memgpt", "mem0", "claude" 
 #   (or "fakellm for debug purposes")
 # "ollama" for any OpenAI Compatible backend. "memgpt" requires setup
-LLM_PROVIDER: "ollama"
+LLM_PROVIDER: "dify"
 
 # Ollama & OpenAI Compatible inference backend
 ollama:
@@ -28,6 +28,28 @@ ollama:
   PROJECT_ID: "project_glass"
   ## LLM name
   MODEL: "qwen2.5:latest"
+  # system prompt is at the very end of this file
+  VERBOSE: False
+
+# xinference Compatible inference backend
+xinference:
+  BASE_URL: "https://open.bigmodel.cn/api/paas/v4/"
+  LLM_API_KEY: "94e4f47dba49757cb61f4e61fa372eb5.qQNMgZ3dGULd12oj"
+  ORGANIZATION_ID: "org_eternity"
+  PROJECT_ID: "project_glass"
+  ## LLM name
+  MODEL: ""
+  # system prompt is at the very end of this file
+  VERBOSE: False
+
+# dify Compatible inference backend
+dify:
+  BASE_URL: "http://10.0.8.238:2064//v1"
+  LLM_API_KEY: "app-rA9opUmtOQxFS4rET4cfYNYh"
+  ORGANIZATION_ID: "org_eternity"
+  PROJECT_ID: "project_glass"
+  ## LLM name
+  MODEL: "qwn2"
   # system prompt is at the very end of this file
   VERBOSE: False
 
@@ -91,7 +113,7 @@ memgpt:
 # ============== Live2D front-end Settings ==============
 
 LIVE2D: False # Deprecated and useless now. Do not enable it. Bad things will happen.
-LIVE2D_MODEL: "shizuku-local"
+LIVE2D_MODEL: "shuziren-local" #shizuku-local
 
 #  ============== Voice Interaction Settings ==============
 
@@ -152,7 +174,7 @@ GroqWhisperASR:
 
 # ============== Text to Speech ==============
 TTS_ON: True
-TTS_MODEL: "edgeTTS"
+TTS_MODEL: "meloTTS"
 # text to speech model options: 
 #   "AzureTTS", "pyttsx3TTS", "edgeTTS", "barkTTS", 
 #   "cosyvoiceTTS", "meloTTS", "piperTTS", "coquiTTS",
@@ -175,7 +197,7 @@ barkTTS:
 edgeTTS:
   # Check out doc at https://github.com/rany2/edge-tts
   # Use `edge-tts --list-voices` to list all available voices
-  voice: "en-US-AvaMultilingualNeural" #"zh-CN-XiaoxiaoNeural" # "ja-JP-NanamiNeural"
+  voice: "zh-CN-XiaoxiaoNeural" #"zh-CN-XiaoxiaoNeural" # "ja-JP-NanamiNeural" #"en-US-AvaMultilingualNeural" 
 
 # pyttsx3 doesn't have any config.
 
@@ -192,10 +214,10 @@ cosyvoiceTTS: # Cosy Voice TTS connects to the gradio webui
   api_name: "/generate_audio"
 
 meloTTS:
-  speaker: "EN-Default" # ZH
-  language: "EN" # ZH
+  speaker: "ZH" # ZH EN-Default
+  language: "ZH" # ZH EN
   device: "auto" # You can set it manually to 'cpu' or 'cuda' or 'cuda:0' or 'mps'
-  speed: 1.0
+  speed: 0.8
 
 piperTTS:
   voice_model_path: "./models/piper_voice/en_US-amy-medium.onnx"
@@ -276,7 +298,8 @@ MEMORY_SNAPSHOT: True
 # Name of the persona you want to use. 
 # All persona files are stored as txt in 'prompts/persona' directory. 
 # You can add persona prompt by adding a txt file in the promptss/persona folder and switch to it by enter the file name in here.
-# some options: "en_sarcastic_neuro", "en_nuclear_debate", "zh_翻译腔", "zh_米粒", 
+# some options: "en_sarcastic_neuro", "zh_翻译腔"
+PERSONA_CHOICE: "en_sarcastic_neuro" # or if you rather edit persona prompt below, leave it blank ...
 
 # This prompt will be used instead if the PERSONA_CHOICE is empty
 DEFAULT_PERSONA_PROMPT_IN_YAML: |

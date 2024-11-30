@@ -1,4 +1,8 @@
 import os
+# 设置自定义缓存目录
+os.environ['MODELSCOPE_CACHE'] = '/workspace/modelsDL'
+os.environ['HUGGINGFACE_HUB_CACHE'] = '/workspace/modelsDL'
+
 import re
 import shutil
 import atexit
@@ -15,7 +19,6 @@ from starlette.websockets import WebSocketDisconnect
 from main import OpenLLMVTuberMain
 from live2d_model import Live2dModel
 from tts.stream_audio import AudioPayloadPreparer
-import __init__
 
 
 class WebSocketServer:
@@ -34,7 +37,6 @@ class WebSocketServer:
         """
         Initializes the WebSocketServer with the given configuration.
         """
-        logger.info(f"t41372/Open-LLM-VTuber, version {__init__.__version__}")
         self.app = FastAPI()
         self.router = APIRouter()
         self.connected_clients: List[WebSocket] = []
@@ -582,7 +584,8 @@ if __name__ == "__main__":
     config = load_config_with_env("conf.yaml")
 
     config["LIVE2D"] = True  # make sure the live2d is enabled
-
+    config["HOST"]="0.0.0.0"
+    # config["PORT"] = 6006
     # Initialize and run the WebSocket server
     server = WebSocketServer(open_llm_vtuber_main_config=config)
     server.run(host=config["HOST"], port=config["PORT"])

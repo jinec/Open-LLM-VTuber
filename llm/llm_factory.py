@@ -1,6 +1,8 @@
 from typing import Type
 from .llm_interface import LLMInterface
 from .ollama import LLM as OllamaLLM
+from .xinference import LLM as XinferenceLLM
+from .dify import LLM as DifyLLM
 from .memGPT import LLM as MemGPTLLM
 from .fake_llm import LLM as FakeLLM
 from .claude import LLM as ClaudeLLM
@@ -12,6 +14,26 @@ class LLMFactory:
 
         if llm_provider == "ollama":
             return OllamaLLM(
+                system=kwargs.get("SYSTEM_PROMPT"),
+                base_url=kwargs.get("BASE_URL"),
+                model=kwargs.get("MODEL"),
+                llm_api_key=kwargs.get("LLM_API_KEY"),
+                project_id=kwargs.get("PROJECT_ID"),
+                organization_id=kwargs.get("ORGANIZATION_ID"),
+                verbose=kwargs.get("VERBOSE", False),
+            )
+        elif llm_provider == "xinference":
+            return XinferenceLLM(
+                system=kwargs.get("SYSTEM_PROMPT"),
+                base_url=kwargs.get("BASE_URL"),
+                model=kwargs.get("MODEL"),
+                llm_api_key=kwargs.get("LLM_API_KEY"),
+                project_id=kwargs.get("PROJECT_ID"),
+                organization_id=kwargs.get("ORGANIZATION_ID"),
+                verbose=kwargs.get("VERBOSE", False),
+            )
+        elif llm_provider == "dify":
+            return DifyLLM(
                 system=kwargs.get("SYSTEM_PROMPT"),
                 base_url=kwargs.get("BASE_URL"),
                 model=kwargs.get("MODEL"),
