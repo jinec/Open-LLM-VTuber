@@ -48,7 +48,7 @@ class VoiceRecognition(ASRInterface):
     # def transcribe_with_local_vad(self) -> str:
 
     def __load_hotwords(self,):
-        with open("asr/models/hotwords.txt", "r", encoding="utf-8") as f:
+        with open("asr/hotwords.txt", "r", encoding="utf-8") as f:
             lines = f.readlines()
             lines = [line.strip() for line in lines]
         return " ".join(lines)
