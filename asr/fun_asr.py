@@ -42,9 +42,17 @@ class VoiceRecognition(ASRInterface):
         self.language = language
 
         self.asr_with_vad = None
+        self.hotwords = self.__load_hotwords()
 
     # Implemented in asr_interface.py
     # def transcribe_with_local_vad(self) -> str:
+
+    def __load_hotwords(self,):
+        with open("asr/models/hotwords.txt", "r", encoding="utf-8") as f:
+            lines = f.readlines()
+            lines = [line.strip() for line in lines]
+        return " ".join(lines)
+
 
     def transcribe_np(self, audio: np.ndarray) -> str:
 
@@ -55,6 +63,7 @@ class VoiceRecognition(ASRInterface):
             batch_size_s=300,
             use_itn=self.use_itn,
             language=self.language,
+            hotword=self.hotwords
         )
 
         full_text = res[0]["text"]
